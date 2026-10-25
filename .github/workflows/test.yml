@@ -1,0 +1,11 @@
+name: DSP regression
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y octave gnuplot-nox fonts-freefont-otf
+      - run: octave --no-gui main.m
+      - uses: actions/upload-artifact@v4
+        with: {name: dsp-plots, path: output/}
